@@ -17,6 +17,7 @@
 #include "../core/includes/sapi.h"
 
 #include "../libs/includes/ssocketlib.h"
+#include "../libs/includes/scurseslib.h"
 
 #define SENEGAL_HELP \
   "Usage: senegal [flags] | [senegal-file]\n\n" \
@@ -124,6 +125,10 @@ static void addPaths(VM* vm) {
   tableInsert(vm, &vm->corePaths,
               GC_OBJ_CONST(copyString(vm, NULL, "sgl:sock", 8)),
               GC_OBJ_CONST(newNative(vm, initSocketLib)));
+
+  tableInsert(vm, &vm->corePaths,
+              GC_OBJ_CONST(copyString(vm, NULL, "sgl:curses", 10)),
+              GC_OBJ_CONST(newNative(vm, initCursesLib)));
 }
 
 static void defineArgv(VM* vm, int argc, const char* argv[]) {
